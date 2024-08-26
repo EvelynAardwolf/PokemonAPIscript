@@ -84,13 +84,13 @@ if (pokemonGen == "All"):
     result = input("(y/N) \n")
     if result == "y":
         print("running for all 1025 pokemon...")
-        pokemonGenRange = range(1, 1026)
+        pokemonRange = range(1, 1026)
     else:
         print("cancelled...")
         exit(0)
 elif (pokemonGen == "test"):
     print("test run, pulling first 9 pokemon")
-    pokemonGenRange = range(1, 10)
+    pokemonRange = range(1, 10)
 elif (pokemonGen < 1 or pokemonGen > 9 ): 
     print("generation out of bounds")
     exit(1)
@@ -98,28 +98,28 @@ else:
     #set a range value based off the selected generation
     match pokemonGen:
         case 1:
-            pokemonGenRange = range(1, 152)
+            pokemonRange = range(1, 152)
         case 2:
-            pokemonGenRange = range(152, 252)
+            pokemonRange = range(152, 252)
         case 3:
-            pokemonGenRange = range(252, 387)
+            pokemonRange = range(252, 387)
         case 4:
-            pokemonGenRange = range(387, 494)
+            pokemonRange = range(387, 494)
         case 5:
-            pokemonGenRange = range(494, 650)
+            pokemonRange = range(494, 650)
         case 6:
-            pokemonGenRange = range(650, 722)
+            pokemonRange = range(650, 722)
         case 7:
-            pokemonGenRange = range(722, 810)
+            pokemonRange = range(722, 810)
         case 8:
-            pokemonGenRange = range(810, 906)
+            pokemonRange = range(810, 906)
         case 9:
-            pokemonGenRange = range(906, 1026)
+            pokemonRange = range(906, 1026)
 
 #list for data to be written to
 formattedPokemonDataList = []
-for i in pokemonGenRange:
-    print("fetching:" + str(i) + " of " + str(pokemonGenRange.stop-1))
+for i in pokemonRange:
+    print("fetching:" + str(i) + " of " + str(pokemonRange.stop-1))
     data = getPokemon(i)
     formattedPokemonData = formatPokeData(data)
     formattedPokemonDataList.append(formattedPokemonData)
