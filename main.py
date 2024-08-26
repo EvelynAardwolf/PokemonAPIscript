@@ -68,7 +68,7 @@ def formatPokeData(pokemonData) -> dict:
 #write the CSV file with a list of formatted pokemonData, named using the selected generation
 def writeCSV(formattedPokemonDataList, generation):
     with open(f'pokemonGen{generation}.csv', 'w', newline='', encoding='utf-8') as csvfile:
-        fieldnames = ["id", "Name", "Weight", "Height", "Type 1" "Type 2", "Stats"]
+        fieldnames = ["id", "Name", "Weight", "Height", "Type 1", "Type 2", "Stats"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
         writer.writeheader()
@@ -80,7 +80,27 @@ def writeCSV(formattedPokemonDataList, generation):
 
 pokemonGen = int(input("select generation \n"))
 
-pokemonGenRange = range(1, pokemonGen)
+
+#set a range value based off the selected generation
+match pokemonGen:
+    case 1:
+        pokemonGenRange = range(1, 151)
+    case 2:
+        pokemonGenRange = range(152, 251)
+    case 3:
+        pokemonGenRange = range(252, 386)
+    case 4:
+        pokemonGenRange = range(387, 493)
+    case 5:
+        pokemonGenRange = range(494, 649)
+    case 6:
+        pokemonGenRange = range(650, 721)
+    case 7:
+        pokemonGenRange = range(722, 809)
+    case 8:
+        pokemonGenRange = range(810, 905)
+    case 9:
+        pokemonGenRange = range(906, 1025)
 
 formattedPokemonDataList = []
 for i in pokemonGenRange:
