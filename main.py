@@ -92,7 +92,7 @@ if (pokemonGen == "All"):
     else:
         print("cancelled...")
         exit(0)
-elif (pokemonGen < 1 or pokemonGen > 9 ): 
+elif (int(pokemonGen) < 1 or int(pokemonGen) > 9 ): 
     print("generation out of bounds")
     exit(1)
 else:
