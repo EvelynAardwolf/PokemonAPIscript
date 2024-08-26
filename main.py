@@ -42,7 +42,7 @@ def formatPokeData(pokemonData) -> dict:
                 "speed": pokemonData['stats'][5]['base_stat']
                 }
 
-
+    #format depending on type 2
     if len(pokemonData['types']) == 1:
         formatted = {
                     "id": pokemonData['id'],
