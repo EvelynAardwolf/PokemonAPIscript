@@ -79,7 +79,12 @@ def writeCSV(formattedPokemonDataList, generation):
 pokemonGen = input("select generation (1 - 9 or All(highly discouraged)) \n")
 
 if (pokemonGen == "All"):
-    print("are you sure you want to run for all 1025 pokemon? I would really not recommend running this as it will take more than 8 minutes due to pre-programmed delay as well as the delay in the API. NOTE: you might get blocked by pokeapi.co if running this too much!")
+    print(
+        "are you sure you want to run for all 1025 pokemon? \n",
+        "I would really not recommend running this as it will take more than 8 minutes due to pre-programmed delay as well as the delay in the API. \n",
+        "This might also use quite a large amount of memory. \n",
+        "NOTE: you might get blocked by pokeapi.co if running this too much! \n"
+        )
     result = input("(y/N) \n")
     if result == "y":
         print("running for all 1025 pokemon...")
