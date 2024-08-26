@@ -27,55 +27,58 @@ def getPokemon(pokemonID: int) -> dict:
     
 
 #format the pokemon data into a readable string
-def formatPokeData(pokemonData):
+def formatPokeData(pokemonData) -> dict:
     #print(len(pokemonData['types']))
+    basestats = {
+                "hp": pokemonData['stats'][0]['base_stat'],
+                "attack": pokemonData['stats'][1]['base_stat'], 
+                "defense": pokemonData['stats'][2]['base_stat'], 
+                "special-attack": pokemonData['stats'][3]['base_stat'], 
+                "special-defence": pokemonData['stats'][4]['base_stat'], 
+                "speed": pokemonData['stats'][5]['base_stat']
+                }
+
+
     if len(pokemonData['types']) == 1:
-        print(f"id: {pokemonData['id']}",
-            f"Name: {pokemonData['name']}",
-            f"Weight: {pokemonData['weight']/1000} kg",
-            f"Height: {pokemonData['height']/10} m",
-            f"type 1: {pokemonData['types'][0]['type']['name']}",
-            f"type 2: none", 
-            f"base stats: ",
-            f"  hp: {pokemonData['stats'][0]['base_stat']}",
-            f"  attack: {pokemonData['stats'][1]['base_stat']}",
-            f"  defense: {pokemonData['stats'][2]['base_stat']}",
-            f"  special-attack: {pokemonData['stats'][3]['base_stat']}",
-            f"  special-defence: {pokemonData['stats'][4]['base_stat']}",
-            f"  speed: {pokemonData['stats'][5]['base_stat']}",
-            sep="\n"
-            )
+        formatted = {
+                    "id": pokemonData['id'],
+                    "Name": pokemonData['name'],
+                    "Weight": pokemonData['weight']/1000,
+                    "Height": pokemonData['height']/10,
+                    "Type 1": pokemonData['types'][0]['type']['name'],
+                    "Type 2": "None",
+                    "Stats": basestats
+                    }
     else:
-        print(f"id: {pokemonData['id']}",
-            f"Name: {pokemonData['name']}",
-            f"Weight: {pokemonData['weight']/1000} kg",
-            f"Height: {pokemonData['height']/10} m",
-            f"type 1: {pokemonData['types'][0]['type']['name']}",
-            f"type 2: {pokemonData['types'][1]['type']['name']}", 
-            f"base stats: ",
-            f"  hp: {pokemonData['stats'][0]['base_stat']}",
-            f"  attack: {pokemonData['stats'][1]['base_stat']}",
-            f"  defense: {pokemonData['stats'][2]['base_stat']}",
-            f"  special-attack: {pokemonData['stats'][3]['base_stat']}",
-            f"  special-defence: {pokemonData['stats'][4]['base_stat']}",
-            f"  speed: {pokemonData['stats'][5]['base_stat']}",
-            sep="\n"
-            )
-    return
+        formatted = {
+                    "id": pokemonData['id'],
+                    "Name": pokemonData['name'],
+                    "Weight": pokemonData['weight']/1000,
+                    "Height": pokemonData['height']/10,
+                    "Type 1": pokemonData['types'][0]['type']['name'],
+                    "Type 2": pokemonData['types'][1]['type']['name'],
+                    "Stats": basestats
+                    }
+
+    return formatted
 
 
 def writeCSV(formattedPokemonDataList, generation):
     with open(f'pokemonGen{generation}.csv', 'w', newline='', encoding='utf-8') as csvfile:
-        fieldnames = ["Number", "Name", "Weight", "Height", "Type 1" "Type 2", "Stats"]
+        fieldnames = ["id", "Name", "Weight", "Height", "Type 1" "Type 2", "Stats"]
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
 
         writer.writeheader()
         writer.writerows(formattedPokemonDataList)
 
+pokemonGen = input("select generation \n")
+pokemonGenRange = range(1, pokemonGen)
 
-#pokemongen = input("select generation \n")
+formattedPokemonDataList = []
+for i in pokemonGenRange:
+    data = getPokemon(i)
+    formattedPokemonData = formatPokeData(data)
+    formattedPokemonDataList.append(formattedPokemonData)
 
 
-
-data = getPokemon(input("Enter pokemon ID \n"))
-formatPokeData(data)
+writeCSV(formattedPokemonDataList, pokemonGen)
