@@ -76,33 +76,40 @@ def writeCSV(formattedPokemonDataList, generation):
         writer.writerows(formattedPokemonDataList)
 
 
-pokemonGen = int(input("select generation (1 - 9) \n"))
-if (pokemonGen < 1 or pokemonGen > 9 ): 
+pokemonGen = input("select generation (1 - 9 or all(highly discouraged)) \n")
+if (pokemonGen == "all"):
+    print("are you sure you want to run for all 1025 pokemon? I would really not recommend running this, and you might get blocked by pokeapi.co!")
+    result = input("y/N \n")
+    if result == "y":
+        print("running for all 1025 pokemon...")
+        pokemonGenRange = range(1, 1026)
+    else:
+        print("cancelled...")
+        exit(0)
+elif (pokemonGen < 1 or pokemonGen > 9 ): 
     print("generation out of bounds")
     exit(1)
-
-
-
-#set a range value based off the selected generation
-match pokemonGen:
-    case 1:
-        pokemonGenRange = range(1, 151)
-    case 2:
-        pokemonGenRange = range(152, 251)
-    case 3:
-        pokemonGenRange = range(252, 386)
-    case 4:
-        pokemonGenRange = range(387, 493)
-    case 5:
-        pokemonGenRange = range(494, 649)
-    case 6:
-        pokemonGenRange = range(650, 721)
-    case 7:
-        pokemonGenRange = range(722, 809)
-    case 8:
-        pokemonGenRange = range(810, 905)
-    case 9:
-        pokemonGenRange = range(906, 1025)
+else:
+    #set a range value based off the selected generation
+    match pokemonGen:
+        case 1:
+            pokemonGenRange = range(1, 152)
+        case 2:
+            pokemonGenRange = range(152, 252)
+        case 3:
+            pokemonGenRange = range(252, 387)
+        case 4:
+            pokemonGenRange = range(387, 494)
+        case 5:
+            pokemonGenRange = range(494, 650)
+        case 6:
+            pokemonGenRange = range(650, 722)
+        case 7:
+            pokemonGenRange = range(722, 810)
+        case 8:
+            pokemonGenRange = range(810, 906)
+        case 9:
+            pokemonGenRange = range(906, 1026)
 
 #list for data to be written to
 formattedPokemonDataList = []
@@ -114,3 +121,4 @@ for i in pokemonGenRange:
 
 #output as .csv file
 writeCSV(formattedPokemonDataList, pokemonGen)
+print("finished")
