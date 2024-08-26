@@ -3,6 +3,7 @@ import json
 import csv
 import time
 
+
 #get a pokemon from pokeapi
 def getPokemon(pokemonID: int) -> dict:
     requestURL = "https://pokeapi.co/api/v2/pokemon/" + str(pokemonID)
@@ -33,34 +34,36 @@ def getPokemon(pokemonID: int) -> dict:
 #format the pokemon data into a dict format for .csv
 def formatPokeData(pokemonData) -> dict:
     formatted = {
-                "id": pokemonData['id'],
-                "Name": pokemonData['name'],
-                "Weight": pokemonData['weight']/1000, #divide by 1000 to get Kg
-                "Height": pokemonData['height']/10, #divide by 10 to get meters
-                }
+        "id": pokemonData['id'],
+        "Name": pokemonData['name'],
+        "Weight": pokemonData['weight']/1000, #divide by 1000 to get Kg
+        "Height": pokemonData['height']/10, #divide by 10 to get meters
+    }
 
     #format depending on type 2
     if len(pokemonData['types']) == 1:
         formatted.update({
-                    "Type 1": pokemonData['types'][0]['type']['name'],
-                    "Type 2": "None",
-                    })
+            "Type 1": pokemonData['types'][0]['type']['name'],
+            "Type 2": "None",
+        })
     else:
         formatted.update({
-                    "Type 1": pokemonData['types'][0]['type']['name'],
-                    "Type 2": pokemonData['types'][1]['type']['name'],
-                    })
+            "Type 1": pokemonData['types'][0]['type']['name'],
+            "Type 2": pokemonData['types'][1]['type']['name'],
+        })
+
         #add stats
     formatted.update({
-            "hp": pokemonData['stats'][0]['base_stat'],
-            "attack": pokemonData['stats'][1]['base_stat'], 
-            "defense": pokemonData['stats'][2]['base_stat'], 
-            "special-attack": pokemonData['stats'][3]['base_stat'], 
-            "special-defense": pokemonData['stats'][4]['base_stat'], 
-            "speed": pokemonData['stats'][5]['base_stat']
+        "hp": pokemonData['stats'][0]['base_stat'],
+        "attack": pokemonData['stats'][1]['base_stat'], 
+        "defense": pokemonData['stats'][2]['base_stat'], 
+        "special-attack": pokemonData['stats'][3]['base_stat'], 
+        "special-defense": pokemonData['stats'][4]['base_stat'], 
+        "speed": pokemonData['stats'][5]['base_stat']
     })
 
     return formatted
+
 
 #write the CSV file with a list of formatted pokemonData, named using the selected generation
 def writeCSV(formattedPokemonDataList, generation):
@@ -71,6 +74,7 @@ def writeCSV(formattedPokemonDataList, generation):
         writer.writeheader()
         writer.writerows(formattedPokemonDataList)
 
+
 #select a generation between 1 and 9, or all generations
 pokemonGen = input("select generation (1 - 9 or All(highly discouraged)) \n")
 
@@ -80,20 +84,25 @@ if (pokemonGen == "All"):
         "I would really not recommend running this as it will take more than 8 minutes due to pre-programmed delay as well as the delay in the API and other unexpected run time delays. \n",
         "This might also use quite a large amount of memory. \n",
         "NOTE: you might get blocked by pokeapi.co if running this too much! \n"
-        )
+    )
     result = input("(y/N) \n")
-    if result == "y":
+
+    if result.lower == "y":
         print("running for all 1025 pokemon...")
         pokemonRange = range(1, 1026)
     else:
         print("cancelled...")
         exit(0)
+        
+#test run that only pulls 9 pokemon
 elif (pokemonGen == "test"):
     print("test run, pulling first 9 pokemon")
     pokemonRange = range(1, 10)
+
 elif (pokemonGen < 1 or pokemonGen > 9 ): 
     print("generation out of bounds")
     exit(1)
+
 else:
     #set a range value based off the selected generation
     match pokemonGen:
@@ -116,6 +125,7 @@ else:
         case 9:
             pokemonRange = range(906, 1026)
 
+
 #list for data to be written to
 formattedPokemonDataList = []
 for i in pokemonRange:
@@ -124,6 +134,7 @@ for i in pokemonRange:
     formattedPokemonData = formatPokeData(data)
     formattedPokemonDataList.append(formattedPokemonData)
     time.sleep(0.5)
+
 
 #output as .csv file
 writeCSV(formattedPokemonDataList, pokemonGen)
