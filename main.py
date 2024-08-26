@@ -122,7 +122,7 @@ else:
 #list for data to be written to
 formattedPokemonDataList = []
 for i in pokemonGenRange:
-    print("fetching:" + i + " of " + pokemonGenRange.stop)
+    print("fetching:" + str(i) + " of " + pokemonGenRange.stop)
     data = getPokemon(i)
     formattedPokemonData = formatPokeData(data)
     formattedPokemonDataList.append(formattedPokemonData)
