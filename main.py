@@ -1,15 +1,17 @@
 import requests
 import json
 import csv
+import time
 
-#function to get a pokemon from pokeapi
+#get a pokemon from pokeapi
 def getPokemon(pokemonID: int) -> dict:
     requestURL = "https://pokeapi.co/api/v2/pokemon/" + str(pokemonID)
     response = requests.get(requestURL)
 
     if response.status_code == 200:
         data = response.json()
-        #print(data)
+
+        #filter  to only required data
         pokemonData = {
         "id": data.pop("id"),
         "name": data.pop("name"),
@@ -18,15 +20,16 @@ def getPokemon(pokemonID: int) -> dict:
         "stats": data.pop("stats"),
         "types": data.pop("types")
         }
-        del(data)
-        #print(pokemonData)
+
+        del(data) #remove unused data to reduce memory load
         return pokemonData
     else:
+        #exit on failed request to avoid errors in the file
         print("request returned: " + response.status_code)
-        exit(1)
+        exit(response.status_code)
     
 
-#format the pokemon data into a readable string
+#format the pokemon data into a dict format for .csv
 def formatPokeData(pokemonData) -> dict:
     #print(len(pokemonData['types']))
     basestats = {
@@ -43,8 +46,8 @@ def formatPokeData(pokemonData) -> dict:
         formatted = {
                     "id": pokemonData['id'],
                     "Name": pokemonData['name'],
-                    "Weight": pokemonData['weight']/1000,
-                    "Height": pokemonData['height']/10,
+                    "Weight": pokemonData['weight']/1000, #divide by 1000 to get Kg
+                    "Height": pokemonData['height']/10, #divide by 10 to get meters
                     "Type 1": pokemonData['types'][0]['type']['name'],
                     "Type 2": "None",
                     "Stats": basestats
@@ -53,8 +56,8 @@ def formatPokeData(pokemonData) -> dict:
         formatted = {
                     "id": pokemonData['id'],
                     "Name": pokemonData['name'],
-                    "Weight": pokemonData['weight']/1000,
-                    "Height": pokemonData['height']/10,
+                    "Weight": pokemonData['weight']/1000, #divide by 1000 to get Kg
+                    "Height": pokemonData['height']/10, #divide by 10 to get meters
                     "Type 1": pokemonData['types'][0]['type']['name'],
                     "Type 2": pokemonData['types'][1]['type']['name'],
                     "Stats": basestats
@@ -62,7 +65,7 @@ def formatPokeData(pokemonData) -> dict:
 
     return formatted
 
-
+#write the CSV file with a list of formatted pokemonData, named using the selected generation
 def writeCSV(formattedPokemonDataList, generation):
     with open(f'pokemonGen{generation}.csv', 'w', newline='', encoding='utf-8') as csvfile:
         fieldnames = ["id", "Name", "Weight", "Height", "Type 1" "Type 2", "Stats"]
@@ -71,7 +74,12 @@ def writeCSV(formattedPokemonDataList, generation):
         writer.writeheader()
         writer.writerows(formattedPokemonDataList)
 
-pokemonGen = input("select generation \n")
+
+
+
+
+pokemonGen = int(input("select generation \n"))
+
 pokemonGenRange = range(1, pokemonGen)
 
 formattedPokemonDataList = []
@@ -79,6 +87,6 @@ for i in pokemonGenRange:
     data = getPokemon(i)
     formattedPokemonData = formatPokeData(data)
     formattedPokemonDataList.append(formattedPokemonData)
-
+    time.sleep(0.3)
 
 writeCSV(formattedPokemonDataList, pokemonGen)
