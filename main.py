@@ -91,6 +91,9 @@ if (pokemonGen == "All"):
     else:
         print("cancelled...")
         exit(0)
+elif (pokemonGen == "test"):
+    print("test run, pulling first 9 pokemon")
+    pokemonGenRange = range(1, 10)
 elif (pokemonGen < 1 or pokemonGen > 9 ): 
     print("generation out of bounds")
     exit(1)
