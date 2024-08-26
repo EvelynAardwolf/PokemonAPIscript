@@ -22,7 +22,6 @@ def getPokemon(pokemonID: int) -> dict:
             "stats": data.pop("stats"),
             "types": data.pop("types")
         }
-
         del(data) #remove unused data to reduce memory load
         return pokemonData
     else:
@@ -39,6 +38,10 @@ def formatPokeData(pokemonData) -> dict:
         "Weight": pokemonData['weight']/1000, #divide by 1000 to get Kg
         "Height": pokemonData['height']/10, #divide by 10 to get meters
     }
+
+    #fix for inf(9999) weight pokemon
+    if(pokemonData["weight"] == 9999):
+        formatted.update({"Weight": 9999})
 
     #format depending on type 2
     if len(pokemonData['types']) == 1:
