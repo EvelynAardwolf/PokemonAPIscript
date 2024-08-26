@@ -8,6 +8,7 @@ def getPokemon(pokemonID: int) -> dict:
     requestURL = "https://pokeapi.co/api/v2/pokemon/" + str(pokemonID)
     response = requests.get(requestURL)
 
+    #check http response
     if response.status_code == 200:
         data = response.json()
 
@@ -75,10 +76,11 @@ def writeCSV(formattedPokemonDataList, generation):
         writer.writerows(formattedPokemonDataList)
 
 
+pokemonGen = int(input("select generation (1 - 9) \n"))
+if (pokemonGen < 1 or pokemonGen > 9 ): 
+    print("generation out of bounds")
+    exit(1)
 
-
-
-pokemonGen = int(input("select generation \n"))
 
 
 #set a range value based off the selected generation
@@ -102,11 +104,13 @@ match pokemonGen:
     case 9:
         pokemonGenRange = range(906, 1025)
 
+#list for data to be written to
 formattedPokemonDataList = []
 for i in pokemonGenRange:
     data = getPokemon(i)
     formattedPokemonData = formatPokeData(data)
     formattedPokemonDataList.append(formattedPokemonData)
-    time.sleep(0.3)
+    time.sleep(0.5)
 
+#output as .csv file
 writeCSV(formattedPokemonDataList, pokemonGen)
