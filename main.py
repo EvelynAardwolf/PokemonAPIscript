@@ -52,14 +52,14 @@ def formatPokeData(pokemonData) -> dict:
                     "Type 2": pokemonData['types'][1]['type']['name'],
                     })
         #add stats
-        formatted.update({
+    formatted.update({
             "hp": pokemonData['stats'][0]['base_stat'],
             "attack": pokemonData['stats'][1]['base_stat'], 
             "defense": pokemonData['stats'][2]['base_stat'], 
             "special-attack": pokemonData['stats'][3]['base_stat'], 
             "special-defense": pokemonData['stats'][4]['base_stat'], 
             "speed": pokemonData['stats'][5]['base_stat']
-        })
+    })
 
     formatted
 
