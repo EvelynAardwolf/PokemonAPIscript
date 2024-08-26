@@ -61,8 +61,6 @@ def formatPokeData(pokemonData) -> dict:
             "speed": pokemonData['stats'][5]['base_stat']
     })
 
-    formatted
-
     return formatted
 
 #write the CSV file with a list of formatted pokemonData, named using the selected generation
