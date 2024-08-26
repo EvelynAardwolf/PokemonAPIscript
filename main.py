@@ -57,7 +57,7 @@ def formatPokeData(pokemonData) -> dict:
             "attack": pokemonData['stats'][1]['base_stat'], 
             "defense": pokemonData['stats'][2]['base_stat'], 
             "special-attack": pokemonData['stats'][3]['base_stat'], 
-            "special-defence": pokemonData['stats'][4]['base_stat'], 
+            "special-defense": pokemonData['stats'][4]['base_stat'], 
             "speed": pokemonData['stats'][5]['base_stat']
         })
 
