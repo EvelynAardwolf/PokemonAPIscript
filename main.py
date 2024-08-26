@@ -32,7 +32,6 @@ def getPokemon(pokemonID: int) -> dict:
 
 #format the pokemon data into a dict format for .csv
 def formatPokeData(pokemonData) -> dict:
-    #print(len(pokemonData['types']))
     formatted = {
                 "id": pokemonData['id'],
                 "Name": pokemonData['name'],
