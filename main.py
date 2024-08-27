@@ -131,11 +131,15 @@ else:
 
 #list for data to be written to
 formattedPokemonDataList = []
+
+#for loop to pull all entries with ID in range
 for i in pokemonRange:
     print("fetching:" + str(i) + " of " + str(pokemonRange.stop-1))
     data = getPokemon(i)
     formattedPokemonData = formatPokeData(data)
     formattedPokemonDataList.append(formattedPokemonData)
+    
+    #delay requests to the server 
     time.sleep(0.5)
 
 
