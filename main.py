@@ -84,7 +84,8 @@ pokemonGen = input("select generation (1 - 9 or All(highly discouraged)) \n")
 if (pokemonGen == "All"):
     print(
         "are you sure you want to run for all 1025 pokemon? \n",
-        "I would really not recommend running this as it will take more than 8 minutes due to pre-programmed delay as well as the delay in the API and other unexpected run time delays. \n",
+        "I would really not recommend running this as it will take more than 8 \n",
+        "minutes due to pre-programmed delay as well as the delay in the API and other unexpected run time delays. \n",
         "This might also use quite a large amount of memory. \n",
         "NOTE: you might get blocked by pokeapi.co if running this too much! \n"
     )
