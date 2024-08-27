@@ -135,8 +135,11 @@ formattedPokemonDataList = []
 #for loop to pull all entries with ID in range
 for i in pokemonRange:
     print("fetching:" + str(i) + " of " + str(pokemonRange.stop-1))
+    #send request with ID which returns filtered data of pokemon with that number
     data = getPokemon(i)
+    #format the data as 
     formattedPokemonData = formatPokeData(data)
+    #append formatted data to list
     formattedPokemonDataList.append(formattedPokemonData)
     
     #delay requests to the server 
