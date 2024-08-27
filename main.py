@@ -27,7 +27,7 @@ def getPokemon(pokemonID: int) -> dict:
     else:
         #exit on failed request to avoid errors in the file
         print("request returned: " + response.status_code)
-        exit(2))
+        exit(2)
     
 
 #format the pokemon data into a dict format for .csv
