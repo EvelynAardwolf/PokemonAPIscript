@@ -15,12 +15,12 @@ def getPokemon(pokemonID: int) -> dict:
 
         #filter  to only required data
         pokemonData = {
-            "id": data.pop("id"),
-            "name": data.pop("name"),
-            "weight": data.pop("weight"),
-            "height": data.pop("height"),
-            "stats": data.pop("stats"),
-            "types": data.pop("types")
+            "id": data["id"],
+            "name": data["name"],
+            "weight": data["weight"],
+            "height": data["height"],
+            "stats": data["stats"],
+            "types": data["types"]
         }
         del(data) #remove unused data to reduce memory load
         return pokemonData
