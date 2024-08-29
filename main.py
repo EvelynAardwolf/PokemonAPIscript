@@ -35,7 +35,7 @@ def formatPokeData(pokemonData) -> dict:
     formatted = {
         "id": pokemonData['id'],
         "Name": pokemonData['name'],
-        "Weight": pokemonData['weight']/1000, #divide by 1000 to get Kg
+        "Weight": pokemonData['weight']/10, #divide by 1000 to get Kg
         "Height": pokemonData['height']/10, #divide by 10 to get meters
     }
 
